@@ -1,6 +1,6 @@
 # CUDA implementation of Konvolution
 
-## Replacing linear operation in convolution with KAN-like operation
+- Replacing linear operation in convolution with KAN-like operation
 
 ## References:
 
