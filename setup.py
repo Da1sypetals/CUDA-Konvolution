@@ -18,13 +18,6 @@ setup(
             ['./cpp/legendre.cpp',
              './cpp/legendre_cuda.cu',]
         ),
-        # the "optimized" version actually did not optimize anything.
-        # it has the same performance as the cuda one.
-        CUDAExtension(
-            'optimized_leg_ops', # operator name
-            ['./optimized_cpp/legendre.cpp',
-             './cpp/legendre_cuda.cu',]
-        ),
     ],
     cmdclass={
         'build_ext': BuildExtension

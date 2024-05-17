@@ -1,4 +1,6 @@
-# CUDA implementation of Legendre KAN
+# CUDA implementation of Konvolution
+
+## Replacing linear operation in convolution with KAN-like operation
 
 ## References:
 
@@ -6,7 +8,7 @@
 
 ## Note
 
-- There are no optimizations other than memory access coalescing. I a cuda beginner and willing to receive optimization suggestions : )
+- There are no optimizations in this implementation. I a cuda beginner and willing to receive optimization suggestions : )
 
 ## Start
 
@@ -23,11 +25,5 @@ pip install -e .
    - Run test on MNIST:
 
    ```bash
-   python cheby_test.py
-   ```
-
-   - Run benchmark (code from [KAN-benchmarking](https://github.com/Jerry-Master/KAN-benchmarking)):
-
-   ```bash
-   python benchmark.py --method all --reps 100 --just-cuda
+   python test_kal.py
    ```
