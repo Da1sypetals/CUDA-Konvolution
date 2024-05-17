@@ -1,4 +1,4 @@
-# from .layer import Konvolution2d
+from .layer import Konvolution2d
 from .layer import KonvR2d
 from cuLegKan.layer import LegendreKANLayer
 
@@ -10,10 +10,9 @@ import torch.nn.functional as F
 class Net(nn.Module):
     def __init__(self):
         super().__init__()
-        self.konv1 = KonvR2d(1, 10, kernel_size=5, degree=4)
-        self.konv2 = KonvR2d(10, 20, kernel_size=5, degree=4)
-        self.layer1 = LegendreKANLayer(320, 50, polynomial_order=4)
-        self.layer2 = LegendreKANLayer(50, 10, polynomial_order=4)
+        self.konv1 = Konvolution2d(1, 10, kernel_size=5, degree=4)
+        self.konv2 = Konvolution2d(10, 20, kernel_size=5, degree=4)
+        self.layer1 = LegendreKANLayer(320, 10, polynomial_order=4)
 
     def forward(self, x):
         x = self.konv1(x)
@@ -27,7 +26,5 @@ class Net(nn.Module):
         x = x.view(-1, 320)
 
         x = self.layer1(x)
-        x = F.relu(x)
-        x = self.layer2(x)
 
         return x
