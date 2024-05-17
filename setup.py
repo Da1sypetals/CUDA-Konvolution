@@ -18,6 +18,11 @@ setup(
             ['./cpp/legendre.cpp',
              './cpp/legendre_cuda.cu',]
         ),
+        CUDAExtension(
+            'legendre_2d_ops', # operator name
+            ['./legendre_2d_cpp/legendre_2d.cpp',
+             './legendre_2d_cpp/legendre_2d_cuda.cu',]
+        ),
     ],
     cmdclass={
         'build_ext': BuildExtension

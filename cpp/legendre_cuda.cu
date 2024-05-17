@@ -18,8 +18,8 @@ __global__ void leg_fwd_kernel(const float *x, float *leg, int batch_size, int i
 
         for(int d = 2; d < degree + 1; d++){
             float df = static_cast<float>(d);
-            float denom_inv = 1.f / (df + 1);
-            float new_leg_val = ((2 * df + 1) * x_val * leg_val_z - df * x_val * leg_val_zz) * denom_inv;
+            float denom_inv = 1.f / df;
+            float new_leg_val = ((2 * df - 1) * x_val * leg_val_z - (df - 1) * x_val * leg_val_zz) * denom_inv;
             leg[INDEX3D(d, irow, icol, batch_size, in_feats)] = new_leg_val;
 
 
@@ -52,10 +52,10 @@ __global__ void leg_bwd_kernel(const float* gout, const float *x, const float *l
         for(int d = 2; d < degree + 1; d++){
 
             float df = static_cast<float>(d);
-            float denom_inv = 1.f / (df + 1);
+            float denom_inv = 1.f / df;
 
             // 2a(i-1)
-            float b = ((2 * df + 1) * (leg[INDEX3D(d - 1, irow, icol, batch_size, in_feats)] + x_val * b_z) - df * b_zz) * denom_inv;
+            float b = ((2 * df - 1) * (leg[INDEX3D(d - 1, irow, icol, batch_size, in_feats)] + x_val * b_z) - (df - 1) * b_zz) * denom_inv;
 
             grad_x_val += gout[INDEX3D(d, irow, icol, batch_size, in_feats)] * b;
 

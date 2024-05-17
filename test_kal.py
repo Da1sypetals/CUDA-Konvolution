@@ -21,6 +21,7 @@ trainloader = DataLoader(trainset, batch_size=64, shuffle=True)
 valloader = DataLoader(valset, batch_size=64, shuffle=False)
 
 # Define model
+# from cuLegKan.net import Net
 from konv.net import Net
 model = Net()
 
