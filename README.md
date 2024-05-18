@@ -2,6 +2,10 @@
 
 - Replacing linear operation in convolution with KAN-like operation
 
+# Warning
+
+- This implementation sometimes reports CUDA illegal memory accessing (my setting is a 8-gpu server where the code runs on `cuda:0` and fails on `cuda:7`).
+
 ## References:
 
 - [pytorch implementation](https://github.com/1ssb/torchkan)

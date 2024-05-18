@@ -22,7 +22,7 @@ transform_test = transforms.Compose([
     transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
 ])
 
-device = torch.device('cuda:7')
+device = torch.device('cuda:0')
 
 # Datasets and Loaders
 def get_loader(train, transform):

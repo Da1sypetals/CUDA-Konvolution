@@ -51,8 +51,8 @@ class Konvolution2d(nn.Module):
         b, c, h, w = x.size()
         device = x.device
 
-        z = self.tanh_scale * x + self.tanh_bias
-        x = torch.tanh(z)
+        x = self.tanh_scale * x + self.tanh_bias
+        x = torch.tanh(x)
         
         # expand
         x = ein.rearrange(x, 'b c h w -> (b h w) c').contiguous()

@@ -6,7 +6,9 @@ from konv.layer import Konvolution2d as Konv2d
 # from konv.original_layer import OKonv2d as Konv2d
 # from konv.layer import KonvR2d as Konv2d
 
-from original.LegKanLayer import KAL_Layer
+# from original.LegKanLayer import KAL_Layer
+
+from cuLegKan.layer import LegendreKANLayer
 
 
 
@@ -67,7 +69,8 @@ class CIFAR_Net(nn.Module):
         )
 
         # self.last = nn.Linear(256, 10)
-        self.last = KAL_Layer(256, 10)
+        # self.last = KAL_Layer(256, 10)
+        self.last = LegendreKANLayer(64, 10)
 
 
     def forward(self, x):
@@ -83,25 +86,25 @@ class CIFAR_Net(nn.Module):
         x = self.block2(x)
         x = x + identity
 
-        x = self.pool1(x)
+        # x = self.pool1(x)
 
-        skip = self.skip3(x)
-        x = self.block3(x)
-        x = x + skip
+        # skip = self.skip3(x)
+        # x = self.block3(x)
+        # x = x + skip
 
-        identity = x
-        x = self.block4(x)
-        x = x + identity
+        # identity = x
+        # x = self.block4(x)
+        # x = x + identity
 
-        x = self.pool2(x)
+        # x = self.pool2(x)
 
-        skip = self.skip5(x)
-        x = self.block5(x)
-        x = x + skip
+        # skip = self.skip5(x)
+        # x = self.block5(x)
+        # x = x + skip
 
-        identity = x
-        x = self.block6(x)
-        x = x + identity
+        # identity = x
+        # x = self.block6(x)
+        # x = x + identity
 
         # skip = self.skip7(x)
         # x = self.block7(x)
