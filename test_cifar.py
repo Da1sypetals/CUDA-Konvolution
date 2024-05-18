@@ -1,3 +1,6 @@
+import os
+os.environ['CUDA_LAUNCH_BLOCKING'] = '1'
+
 import torch
 import torchvision
 import torchvision.transforms as transforms
@@ -19,16 +22,18 @@ transform_test = transforms.Compose([
     transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
 ])
 
+device = torch.device('cuda:7')
+
 # Datasets and Loaders
 def get_loader(train, transform):
     dataset = torchvision.datasets.CIFAR10(root='./data', train=train, download=True, transform=transform)
-    return torch.utils.data.DataLoader(dataset, batch_size=128, shuffle=train, num_workers=2)
+    return torch.utils.data.DataLoader(dataset, batch_size=512, shuffle=train, num_workers=2)
 
 trainloader = get_loader(True, transform_train)
 testloader = get_loader(False, transform_test)
 
 # Model Setup
-net = CIFAR_Net().to('cuda')
+net = CIFAR_Net().to(device)
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.AdamW(net.parameters(), lr=0.001)  # Adjusted learning rate
 scheduler = optim.lr_scheduler.ExponentialLR(optimizer, gamma=0.95)  # Slight adjustment
@@ -39,9 +44,10 @@ for epoch in range(EPOCHS):
     net.train()
     total_loss = 0
     for inputs, labels in tqdm(trainloader):
-        inputs, labels = inputs.cuda(), labels.cuda()
+        inputs, labels = inputs.to(device), labels.to(device)
+
         optimizer.zero_grad()
-    
+
         outputs = net(inputs)
         loss = criterion(outputs, labels)
 
@@ -59,8 +65,9 @@ for epoch in range(EPOCHS):
     correct, total = 0, 0
     with torch.no_grad():
         for images, labels in testloader:
-            images, labels = images.cuda(), labels.cuda()
+            images, labels = images.to(device), labels.to(device)
             outputs = net(images)
+            probs = torch.softmax(outputs, dim=-1)
             _, predicted = torch.max(outputs.data, 1)
             total += labels.size(0)
             correct += (predicted == labels).sum().item()

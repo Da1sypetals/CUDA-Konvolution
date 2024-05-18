@@ -3,7 +3,8 @@ import torch.nn.functional as F
 import torch.nn as nn
 import math
 
-import legendre_ops
+# import legendre_ops
+import rightway_legendre_ops as legendre_ops
 
 
 class LegendreFunction(torch.autograd.Function):

@@ -23,7 +23,8 @@ valloader = DataLoader(valset, batch_size=64, shuffle=False)
 # Define model
 # from cuLegKan.net import Net
 from konv.net import Net, FCNet
-model = FCNet()
+# from nets import CIFAR_Net
+model = Net()
 
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -57,7 +58,7 @@ for epoch in range(10):
             pbar.set_postfix(loss=f'{_loss: .3f}', 
                              accuracy=f'{_acc: .3f}', 
                              lr=f'{_lr: .6f}')
-            print(_loss)
+            # print(_loss)
 
     # Validation
     model.eval()
